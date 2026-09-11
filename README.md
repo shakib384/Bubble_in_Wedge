@@ -1,4 +1,3 @@
-# Bubble_in_Wedge
 # Confined Bubble Dynamics in a Wedge Channel Under Microgravity
 
 This repository contains the computational fluid dynamics (CFD) solver and automation scripts used to simulate three-dimensional, capillary-driven bubble migration in a wedge geometry. The code is built on the [Basilisk](http://basilisk.fr/) framework and utilizes C and MPI for high-performance parallel execution.
@@ -12,13 +11,19 @@ This work supports research on phase-change phenomena, microgravity fluid system
 * **HPC Ready:** Configured for parallel execution on Linux-based clusters using OpenMPI.
 * **Automated Post-Processing:** Includes shell scripts for rapid FFmpeg video rendering of simulation dumps.
 
+## 🔬 Simulation Phases
+The solver is designed to handle multiphase transitions, specifically for the study *"Migration and breakup of confined bubbles in a wedge under microgravity"*:
+* **Phase 1 (Initialization & Equilibrium):** The bubble rises and reaches an equilibrium state within the confined wedge channel under baseline gravitational conditions.
+* **Phase 2 (Microgravity Migration):** The simulation is restarted from the Phase 1 equilibrium dump file. Gravity is turned off (microgravity conditions), and capillary forces exclusively drive the bubble's migration and subsequent breakup out of the wedge.
+
 ## 📂 Repository Structure
 ```text
 ├── exec/
-│   ├── bubble_in_wedge.c    # Main Basilisk C solver
-│   ├── compile.sh           # Build script (GCC, MPI)
-│   ├── job.sh               # Slurm batch submission script
-│   └── ibm/                 # Lab-developed Immersed Boundary headers
+│   ├── bubble_in_wedge.c           # Main Basilisk C solver
+│   ├── compile.sh                  # Build script (GCC, MPI)
+│   ├── job_phase1_equilibrium.sh   # Slurm script for baseline gravity
+│   ├── job_phase2_microgravity.sh  # Slurm script for capillary-driven restart
+│   └── ibm/                        # Lab-developed Immersed Boundary headers
 ├── out/
 │   ├── makemovie.sh         # FFmpeg script to render .mp4 animations
 │   └── clean.sh             # Utility to clear simulation output dumps
@@ -50,6 +55,8 @@ For HPC cluster execution, submit the batch script:
 
 Bash
 sbatch job.sh
+(To run Phase 2, ensure the Phase 1 dump file is present in the output directory and adjust your parameter flags accordingly before submission).
+
 📊 Post-Processing
 Outputs, including interface geometry .dat files and cross-sectional .png renders, are generated in the out/ directory.
 
@@ -69,5 +76,3 @@ The physics, boundary conditions, and numerical methods implemented in this repo
 Ahmed, S., Tryggvason, G., and Ling, Y., "Migration and breakup of confined bubbles in a wedge under microgravity," Physical Review of Fluids, (Submitted) 2026.
 
 Ahmed, S., Tryggvason, G., and Ling, Y., "Rise of a confined bubble in a wedge," International Journal of Multiphase Flow, 2026.
-
-Ahmed, S., Tryggvason, G., and Ling, Y., "Bubble Motion in a Wedge Channel," APS Division of Fluid Dynamics Annual Meeting, 2025.
