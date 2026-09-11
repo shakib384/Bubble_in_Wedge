@@ -1,6 +1,6 @@
 #!/bin/sh
 #!/bin/bash
-#SBATCH --job-name=bubble_wedge
+#SBATCH --job-name=phase1_eq
 #SBATCH --output=run_%j.out
 #SBATCH --error=run_%j.err
 #SBATCH --nodes=1
